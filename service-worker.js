@@ -1,11 +1,16 @@
 // Service Worker for Wesaya Restaurant
-const CACHE_NAME = 'wesaya-v1.0.2';
+const CACHE_NAME = 'wesaya-v1.0.5';
 const urlsToCache = [
     './',
     './index.html',
     './styles.css',
     './script.js',
+    './menu-data.js',
+    './generate-menu.js',
     './manifest.json',
+    './Cursor.cur',
+    './Cursor.png',
+    './cursor.svg',
     'https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap',
     'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
 ];

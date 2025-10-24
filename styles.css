@@ -22,6 +22,21 @@ body {
     color: var(--text-color);
     background-color: var(--bg-color);
     overflow-x: hidden;
+    cursor: url('Cursor.cur'), url('Cursor.png'), auto;
+}
+
+/* Custom cursor for interactive elements */
+a, button, .btn, .menu-item, .offer-card, 
+input[type="submit"], input[type="button"],
+.cart-btn, .order-btn, .filter-btn,
+.add-to-cart-btn, .favorite-btn {
+    cursor: url('Cursor.cur'), url('Cursor.png'), pointer;
+}
+
+/* Custom cursor for text inputs */
+input[type="text"], input[type="email"], 
+input[type="tel"], textarea {
+    cursor: url('Cursor.cur'), url('Cursor.png'), text;
 }
 
 /* DEMO Badge */
@@ -2225,6 +2240,45 @@ body {
 .menu-item,
 .offer-card {
     animation: fadeIn 0.6s ease;
+}
+
+/* Footer Contact Section */
+.footer-contact p {
+    color: #bbb;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.footer-contact p i {
+    color: var(--primary-color);
+    font-size: 16px;
+    width: 20px;
+}
+
+.footer-contact .social-icons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.footer-contact .social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: white;
+    transition: var(--transition);
+}
+
+.footer-contact .social-icons a:hover {
+    background: var(--primary-color);
+    transform: translateY(-3px);
 }
 
 /* Smooth transitions for all interactive elements */

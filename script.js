@@ -255,6 +255,44 @@ function toggleFavorite(name, price) {
     
     saveFavorites();
     updateFavoritesUI();
+    
+    // If favorites modal is open, refresh it
+    const searchModal = document.getElementById('searchModal');
+    if (searchModal.classList.contains('active') && 
+        document.getElementById('searchResults').querySelector('.fa-heart')) {
+        refreshFavoritesDisplay();
+    }
+}
+
+// Refresh favorites display in modal
+function refreshFavoritesDisplay() {
+    if (favorites.length === 0) {
+        document.getElementById('searchResults').innerHTML = `
+            <div style="text-align: center; padding: 40px; color: #999;">
+                <i class="fas fa-heart" style="font-size: 48px; margin-bottom: 15px; opacity: 0.3;"></i>
+                <p>لا توجد منتجات في المفضلة</p>
+            </div>
+        `;
+        return;
+    }
+    
+    document.getElementById('searchResults').innerHTML = `
+        <h3 style="margin-bottom: 20px; color: var(--primary-color);">
+            <i class="fas fa-heart"></i> المفضلة (${favorites.length})
+        </h3>
+        ${favorites.map(product => `
+            <div class="search-result-item">
+                <span class="result-name">${product.name}</span>
+                <span class="result-price">${product.price} ج.م</span>
+                <button onclick="addToCart('${product.name}', '${product.price}')" style="background: var(--primary-color); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; margin-left: 10px;">
+                    <i class="fas fa-cart-plus"></i>
+                </button>
+                <button onclick="toggleFavorite('${product.name}', '${product.price}')" style="background: #e74c3c; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        `).join('')}
+    `;
 }
 
 // Update favorites UI
@@ -454,23 +492,7 @@ favoritesBtn.addEventListener('click', () => {
     
     // Show favorites in search modal
     openSearchModal();
-    document.getElementById('searchResults').innerHTML = `
-        <h3 style="margin-bottom: 20px; color: var(--primary-color);">
-            <i class="fas fa-heart"></i> المفضلة (${favorites.length})
-        </h3>
-        ${favorites.map(product => `
-            <div class="search-result-item">
-                <span class="result-name">${product.name}</span>
-                <span class="result-price">${product.price} ج.م</span>
-                <button onclick="addToCart('${product.name}', '${product.price}')" style="background: var(--primary-color); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; margin-left: 10px;">
-                    <i class="fas fa-cart-plus"></i>
-                </button>
-                <button onclick="toggleFavorite('${product.name}', '${product.price}')" style="background: #e74c3c; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer;">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </div>
-        `).join('')}
-    `;
+    refreshFavoritesDisplay();
 });
 
 // Quick Order Button Event
@@ -1030,3 +1052,33 @@ document.querySelectorAll('img').forEach(img => {
 });
 
 console.log('Wesaya Restaurant Website - Developed with ❤️');
+
+// Dynamic page title change when tab is inactive - MUST RUN AFTER DOM LOADED
+window.addEventListener('DOMContentLoaded', function() {
+    const originalTitle = 'Wesaya - وصاية | أفضل مطعم للبيتزا والبرجر والدجاج المقلي';
+    const inactiveTitle = 'الـ Fried Chicken تناديك | 🐔 بكاك !!!!!';
+    
+    console.log('Title changer initialized:', originalTitle);
+    
+    // Change title when user leaves tab
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = inactiveTitle;
+            console.log('Tab hidden - Title changed to:', document.title);
+        } else {
+            document.title = originalTitle;
+            console.log('Tab visible - Title changed to:', document.title);
+        }
+    });
+    
+    // Also handle blur/focus events for better browser support
+    window.addEventListener('blur', function() {
+        document.title = inactiveTitle;
+        console.log('Window blur - Title changed to:', document.title);
+    });
+    
+    window.addEventListener('focus', function() {
+        document.title = originalTitle;
+        console.log('Window focus - Title changed to:', document.title);
+    });
+});

@@ -1,0 +1,133 @@
+{
+  "restaurantInfo": {
+    "name": "Wesaya - وصاية",
+    "nameAr": "وصاية",
+    "nameEn": "Wesaya",
+    "logo": "https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/456606106_935180735289543_3443792160089947349_n.jpg",
+    "primaryColor": "#e31d22",
+    "contact": {
+      "phone": "01007636312",
+      "phoneFormatted": "+201007636312",
+      "email": "Wesaya@getorder.net",
+      "facebook": "Wesaya - وصاية",
+      "instagram": "Wesaya - وصاية"
+    },
+    "address": {
+      "country": "مصر",
+      "city": "القاهرة"
+    }
+  },
+  "menu": {
+    "totalCategories": 8,
+    "totalItems": 82,
+    "categories": [
+      {
+        "id": "sides",
+        "name": "الأصناف الجانبية",
+        "icon": "fa-utensils",
+        "itemCount": 15
+      },
+      {
+        "id": "offers",
+        "name": "العروض",
+        "icon": "fa-gift",
+        "itemCount": 17
+      },
+      {
+        "id": "drinks",
+        "name": "المشروبات",
+        "icon": "fa-glass-water",
+        "itemCount": 6
+      },
+      {
+        "id": "family",
+        "name": "الوجبات العائلية",
+        "icon": "fa-people-group",
+        "itemCount": 4
+      },
+      {
+        "id": "individual",
+        "name": "الوجبات الفردية",
+        "icon": "fa-user",
+        "itemCount": 16
+      },
+      {
+        "id": "pizza",
+        "name": "بيتزا",
+        "icon": "fa-pizza-slice",
+        "itemCount": 14
+      },
+      {
+        "id": "burgers",
+        "name": "ساندوتشات البرجر",
+        "icon": "fa-burger",
+        "itemCount": 5
+      },
+      {
+        "id": "chicken",
+        "name": "سندوتشات دجاج",
+        "icon": "fa-drumstick-bite",
+        "itemCount": 7
+      }
+    ],
+    "priceRange": {
+      "min": 5.0,
+      "max": 880.0,
+      "currency": "ج.م",
+      "currencyCode": "EGP"
+    }
+  },
+  "promotions": {
+    "activeDiscounts": [
+      {
+        "code": "dis5%",
+        "value": 5.0,
+        "type": "percentage",
+        "minOrder": 1.0,
+        "maxDiscount": 9999.0,
+        "startDate": "2025-05-01",
+        "endDate": "2025-05-12",
+        "active": true
+      }
+    ]
+  },
+  "images": {
+    "cdn": "http://DobitesImages-cda7ebfseuagd8aa.z02.azurefd.net/Upload/Items/",
+    "fallback": "https://via.placeholder.com/400x300"
+  },
+  "technologies": {
+    "frontend": [
+      "HTML5",
+      "CSS3",
+      "JavaScript (Vanilla)"
+    ],
+    "pwa": [
+      "Service Worker",
+      "Web App Manifest",
+      "Cache API"
+    ],
+    "storage": [
+      "localStorage",
+      "IndexedDB (للطلبات المعلقة)"
+    ],
+    "frameworks": [
+      "Font Awesome 6.4.0",
+      "Google Fonts (Cairo)"
+    ]
+  },
+  "features": {
+    "pwa": true,
+    "offline": true,
+    "cart": true,
+    "whatsapp": true,
+    "search": true,
+    "favorites": true,
+    "customerInfo": true,
+    "demo": true,
+    "seo": true,
+    "responsive": true
+  },
+  "version": "1.0.3",
+  "lastUpdated": "2025-01",
+  "dataSource": "https://wesaya.getorders.net/Menu/90?Lang=AR"
+}
