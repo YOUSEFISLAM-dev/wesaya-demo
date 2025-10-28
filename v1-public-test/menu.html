@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>القائمة الكاملة - Wesaya وصاية</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="تصفح قائمتنا الكاملة من البيتزا، البرجر، الدجاج المقلي والمشروبات. أكثر من 82 منتج لذيذ بأفضل الأسعار.">
+    <meta name="keywords" content="قائمة طعام, منيو, بيتزا, برجر, دجاج مقلي, وصاية">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#e74c3c">
+    <link rel="manifest" href="manifest.json">
+    
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- DEMO Badge -->
+    <div class="demo-badge">
+        <i class="fas fa-code"></i>
+        <span>DEMO</span>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <img src="https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/456606106_935180735289543_3443792160089947349_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=ItvIYdE8928Q7kNvwEYibax&_nc_oc=AdmJZLW4paSzyz7_nHUAFQf4yIvvR0C98nhA3IIpqihGQ7Fr84taj4rF5iR4ROpVtiw&_nc_zt=23&_nc_ht=scontent.fcai19-3.fna&_nc_gid=zlA6XALMhpuJerTFkB34xg&oh=00_Afcmzf90hV5JU8_v4LTEa9zg1AHV0NSxH7aTcm9E2hf0zw&oe=69014EE3" alt="Wesaya Logo">
+                    <span>وصاية</span>
+                </div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="about.html">من نحن</a></li>
+                    <li><a href="menu.html" class="active">القائمة</a></li>
+                    <li><a href="offers.html">العروض</a></li>
+                    <li><a href="contact.html">تواصل معنا</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button class="search-toggle" id="searchToggle" title="بحث">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="cart-btn" id="cartBtn" title="السلة">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
+                    <button class="order-btn" id="checkoutBtn">اطلب الآن</button>
+                    <div class="menu-toggle" id="menuToggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>القائمة الكاملة</h1>
+            <p>استكشف تشكيلتنا الواسعة من الوجبات اللذيذة</p>
+            <div class="breadcrumb">
+                <a href="index.html">الرئيسية</a>
+                <i class="fas fa-chevron-left"></i>
+                <span>القائمة</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Categories Grid -->
+    <section class="menu-categories-section">
+        <div class="container">
+            <div class="categories-grid">
+                <a href="category-pizza.html" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-pizza-slice"></i>
+                    </div>
+                    <h3>بيتزا</h3>
+                    <p>14 نوع</p>
+                </a>
+
+                <a href="category-chicken.html" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-drumstick-bite"></i>
+                    </div>
+                    <h3>سندوتشات دجاج</h3>
+                    <p>7 أنواع</p>
+                </a>
+
+                <a href="category-burgers.html" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-burger"></i>
+                    </div>
+                    <h3>ساندوتشات البرجر</h3>
+                    <p>5 أنواع</p>
+                </a>
+
+                <a href="category-individual.html" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>الوجبات الفردية</h3>
+                    <p>16 وجبة</p>
+                </a>
+
+                <a href="category-family.html" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-people-group"></i>
+                    </div>
+                    <h3>الوجبات العائلية</h3>
+                    <p>4 وجبات</p>
+                </a>
+
+                <a href="category-sides.html" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3>الأصناف الجانبية</h3>
+                    <p>15 منتج</p>
+                </a>
+
+                <a href="category-drinks.html" class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-glass-water"></i>
+                    </div>
+                    <h3>المشروبات</h3>
+                    <p>6 أنواع</p>
+                </a>
+
+                <a href="offers.html" class="category-card featured">
+                    <div class="category-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h3>العروض</h3>
+                    <p>17 عرض خاص</p>
+                    <span class="badge">جديد</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- All Menu Items -->
+    <section class="all-menu-section">
+        <div class="container">
+            <h2 class="section-title">جميع المنتجات</h2>
+            
+            <div class="menu-filters">
+                <button class="filter-btn active" data-filter="all">الكل</button>
+                <!-- Filters will be generated dynamically -->
+            </div>
+
+            <div class="menu-grid" id="allMenuItems">
+                <!-- Menu items will be generated dynamically from menu-data.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/456606106_935180735289543_3443792160089947349_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=ItvIYdE8928Q7kNvwEYibax&_nc_oc=AdmJZLW4paSzyz7_nHUAFQf4yIvvR0C98nhA3IIpqihGQ7Fr84taj4rF5iR4ROpVtiw&_nc_zt=23&_nc_ht=scontent.fcai19-3.fna&_nc_gid=zlA6XALMhpuJerTFkB34xg&oh=00_Afcmzf90hV5JU8_v4LTEa9zg1AHV0NSxH7aTcm9E2hf0zw&oe=69014EE3" alt="Wesaya Logo">
+                        <h3>وصاية</h3>
+                    </div>
+                    <p>براند مصري 100% بجودة عالمية تنافس أكبر البراندات العالمية.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/Wesaya" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/Wesaya" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/201007636312" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h3>روابط سريعة</h3>
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="about.html">من نحن</a></li>
+                        <li><a href="menu.html">القائمة</a></li>
+                        <li><a href="offers.html">العروض</a></li>
+                        <li><a href="contact.html">تواصل معنا</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3>الفئات</h3>
+                    <ul>
+                        <li><a href="category-pizza.html">بيتزا</a></li>
+                        <li><a href="category-chicken.html">دجاج</a></li>
+                        <li><a href="category-burgers.html">برجر</a></li>
+                        <li><a href="category-drinks.html">مشروبات</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col footer-contact">
+                    <h3>تواصل معنا</h3>
+                    <p><i class="fas fa-phone"></i> 01007636312</p>
+                    <p><i class="fas fa-envelope"></i> Wesaya@getorder.net</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 وصاية - Wesaya. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-overlay" id="cartOverlay"></div>
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2><i class="fas fa-shopping-cart"></i> سلة التسوق</h2>
+                <button class="close-cart" id="closeCart">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="cart-body" id="cartBody">
+                <div class="empty-cart">
+                    <i class="fas fa-shopping-basket"></i>
+                    <p>السلة فارغة</p>
+                </div>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>الإجمالي:</span>
+                    <span class="total-price" id="totalPrice">0.00 ج.م</span>
+                </div>
+                <button class="checkout-btn" id="checkoutBtnCart">
+                    <i class="fab fa-whatsapp"></i>
+                    إتمام الطلب عبر واتساب
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Info Modal -->
+    <div class="customer-modal" id="customerModal">
+        <div class="customer-overlay"></div>
+        <div class="customer-content">
+            <div class="customer-header">
+                <h2><i class="fas fa-user-circle"></i> معلومات التوصيل</h2>
+                <button class="close-customer" id="closeCustomer">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="customer-body">
+                <form id="customerForm">
+                    <div class="form-group-customer">
+                        <label><i class="fas fa-user"></i> الاسم الكامل</label>
+                        <input type="text" id="customerName" required placeholder="أدخل اسمك الكامل">
+                    </div>
+                    <div class="form-group-customer">
+                        <label><i class="fas fa-phone"></i> رقم الهاتف</label>
+                        <input type="tel" id="customerPhone" required placeholder="01xxxxxxxxx" pattern="[0-9]{11}">
+                    </div>
+                    <div class="form-group-customer">
+                        <label><i class="fas fa-map-marker-alt"></i> العنوان بالتفصيل</label>
+                        <textarea id="customerAddress" required rows="3" placeholder="المدينة، الحي، الشارع..."></textarea>
+                    </div>
+                    <div class="form-group-customer">
+                        <label><i class="fas fa-sticky-note"></i> ملاحظات إضافية</label>
+                        <textarea id="customerNotes" rows="2" placeholder="أي تعليمات خاصة..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-confirm-order">
+                        <i class="fab fa-whatsapp"></i> تأكيد وإرسال الطلب
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Modal -->
+    <div class="search-modal" id="searchModal">
+        <div class="search-overlay"></div>
+        <div class="search-content">
+            <button class="close-search" id="closeSearch">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="ابحث عن منتج...">
+            </div>
+            <div class="search-results" id="searchResults"></div>
+        </div>
+    </div>
+
+    <!-- Favorites Button -->
+    <button class="favorites-btn" id="favoritesBtn" title="المفضلة">
+        <i class="fas fa-heart"></i>
+        <span class="favorites-count" id="favoritesCount">0</span>
+    </button>
+
+    <!-- Quick Order Button -->
+    <button class="quick-order-btn" id="quickOrderBtn" title="طلب سريع عبر واتساب">
+        <i class="fab fa-whatsapp"></i>
+    </button>
+
+    <!-- Scroll to Top -->
+    <button class="scroll-to-top" id="scrollToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="menu-data.js"></script>
+    <script src="generate-menu.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

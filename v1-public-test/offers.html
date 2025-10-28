@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>العروض الخاصة - Wesaya وصاية</title>
+    
+    <meta name="description" content="اكتشف أفضل العروض والخصومات على وجباتنا. عروض خاصة يومية وأسبوعية بأسعار لا تقاوم!">
+    <meta name="theme-color" content="#e74c3c">
+    <link rel="manifest" href="manifest.json">
+    
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- DEMO Badge -->
+    <div class="demo-badge">
+        <i class="fas fa-code"></i>
+        <span>DEMO</span>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <img src="https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/456606106_935180735289543_3443792160089947349_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=ItvIYdE8928Q7kNvwEYibax&_nc_oc=AdmJZLW4paSzyz7_nHUAFQf4yIvvR0C98nhA3IIpqihGQ7Fr84taj4rF5iR4ROpVtiw&_nc_zt=23&_nc_ht=scontent.fcai19-3.fna&_nc_gid=zlA6XALMhpuJerTFkB34xg&oh=00_Afcmzf90hV5JU8_v4LTEa9zg1AHV0NSxH7aTcm9E2hf0zw&oe=69014EE3" alt="Wesaya Logo">
+                    <span>وصاية</span>
+                </div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="about.html">من نحن</a></li>
+                    <li><a href="menu.html">القائمة</a></li>
+                    <li><a href="offers.html" class="active">العروض</a></li>
+                    <li><a href="contact.html">تواصل معنا</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button class="cart-btn" id="cartBtn" title="السلة">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </button>
+                    <button class="order-btn" id="checkoutBtn">اطلب الآن</button>
+                    <div class="menu-toggle" id="menuToggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header offers-header">
+        <div class="container">
+            <h1>🎁 العروض الخاصة</h1>
+            <p>احصل على أفضل العروض والخصومات الحصرية</p>
+            <div class="breadcrumb">
+                <a href="index.html">الرئيسية</a>
+                <i class="fas fa-chevron-left"></i>
+                <span>العروض</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Discount Banner -->
+    <section class="discount-banner">
+        <div class="container">
+            <div class="banner-content">
+                <div class="banner-icon">
+                    <i class="fas fa-percentage"></i>
+                </div>
+                <div class="banner-text">
+                    <h3>خصم 5% على جميع الطلبات!</h3>
+                    <p>استخدم كود الخصم: <strong>dis5%</strong></p>
+                    <p class="small">صالح حتى 12 مايو 2025</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Offers Grid -->
+    <section class="offers-section">
+        <div class="container">
+            <div class="offers-grid" id="offersGrid">
+                <!-- Offers will be loaded dynamically from menu-data.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>جاهز للطلب؟</h2>
+                <p>اطلب الآن واستمتع بأشهى الوجبات مع التوصيل السريع!</p>
+                <div class="cta-buttons">
+                    <button class="btn btn-primary" onclick="window.location.href='menu.html'">
+                        <i class="fas fa-utensils"></i> تصفح القائمة
+                    </button>
+                    <button class="btn btn-secondary" id="quickWhatsappBtn">
+                        <i class="fab fa-whatsapp"></i> طلب سريع عبر واتساب
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="https://scontent.fcai19-3.fna.fbcdn.net/v/t39.30808-6/456606106_935180735289543_3443792160089947349_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=ItvIYdE8928Q7kNvwEYibax&_nc_oc=AdmJZLW4paSzyz7_nHUAFQf4yIvvR0C98nhA3IIpqihGQ7Fr84taj4rF5iR4ROpVtiw&_nc_zt=23&_nc_ht=scontent.fcai19-3.fna&_nc_gid=zlA6XALMhpuJerTFkB34xg&oh=00_Afcmzf90hV5JU8_v4LTEa9zg1AHV0NSxH7aTcm9E2hf0zw&oe=69014EE3" alt="Wesaya Logo">
+                        <h3>وصاية</h3>
+                    </div>
+                    <p>براند مصري 100% بجودة عالمية.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/Wesaya" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/Wesaya" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/201007636312" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h3>روابط سريعة</h3>
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="about.html">من نحن</a></li>
+                        <li><a href="menu.html">القائمة</a></li>
+                        <li><a href="offers.html">العروض</a></li>
+                        <li><a href="contact.html">تواصل معنا</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col footer-contact">
+                    <h3>تواصل معنا</h3>
+                    <p><i class="fas fa-phone"></i> 01007636312</p>
+                    <p><i class="fas fa-envelope"></i> Wesaya@getorder.net</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 وصاية - Wesaya. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals (Cart, Customer Info) -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-overlay" id="cartOverlay"></div>
+        <div class="cart-content">
+            <div class="cart-header">
+                <h2><i class="fas fa-shopping-cart"></i> سلة التسوق</h2>
+                <button class="close-cart" id="closeCart"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="cart-body" id="cartBody">
+                <div class="empty-cart">
+                    <i class="fas fa-shopping-basket"></i>
+                    <p>السلة فارغة</p>
+                </div>
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>الإجمالي:</span>
+                    <span class="total-price" id="totalPrice">0.00 ج.م</span>
+                </div>
+                <button class="checkout-btn" id="checkoutBtnCart">
+                    <i class="fab fa-whatsapp"></i> إتمام الطلب
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="customer-modal" id="customerModal">
+        <div class="customer-overlay"></div>
+        <div class="customer-content">
+            <div class="customer-header">
+                <h2><i class="fas fa-user-circle"></i> معلومات التوصيل</h2>
+                <button class="close-customer" id="closeCustomer"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="customer-body">
+                <form id="customerForm">
+                    <div class="form-group-customer">
+                        <label><i class="fas fa-user"></i> الاسم الكامل</label>
+                        <input type="text" id="customerName" required>
+                    </div>
+                    <div class="form-group-customer">
+                        <label><i class="fas fa-phone"></i> رقم الهاتف</label>
+                        <input type="tel" id="customerPhone" required pattern="[0-9]{11}">
+                    </div>
+                    <div class="form-group-customer">
+                        <label><i class="fas fa-map-marker-alt"></i> العنوان</label>
+                        <textarea id="customerAddress" required rows="3"></textarea>
+                    </div>
+                    <div class="form-group-customer">
+                        <label><i class="fas fa-sticky-note"></i> ملاحظات</label>
+                        <textarea id="customerNotes" rows="2"></textarea>
+                    </div>
+                    <button type="submit" class="btn-confirm-order">
+                        <i class="fab fa-whatsapp"></i> تأكيد الطلب
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <button class="scroll-to-top" id="scrollToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="menu-data.js"></script>
+    <script>
+        // Load offers dynamically
+        document.addEventListener('DOMContentLoaded', function() {
+            const offersGrid = document.getElementById('offersGrid');
+            const offersCategory = menuData.categories.find(cat => cat.id === 'offers');
+            
+            if (offersCategory && offersGrid) {
+                offersGrid.innerHTML = offersCategory.items.map(item => {
+                    const imageUrl = item.img || '404.png';
+                    
+                    return `
+                        <div class="offer-card">
+                            <div class="offer-image">
+                                <img src="${imageUrl}" alt="${item.name}" loading="lazy" onerror="this.src='404.png'">
+                            </div>
+                            <div class="offer-content">
+                                <h3>${item.name}</h3>
+                                <p>${item.desc || ''}</p>
+                                <div class="offer-price">
+                                    <span class="price-main">${item.price} ج.م</span>
+                                </div>
+                                <button class="btn btn-primary add-to-cart-btn" data-name="${item.name}" data-price="${item.price}">
+                                    <i class="fas fa-cart-plus"></i> أضف للسلة
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+        });
+
+        // Quick WhatsApp button
+        document.getElementById('quickWhatsappBtn')?.addEventListener('click', function() {
+            const message = 'مرحباً! أريد الاستفسار عن العروض الخاصة 🎁';
+            window.open(`https://wa.me/201007636312?text=${encodeURIComponent(message)}`, '_blank');
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
