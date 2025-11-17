@@ -257,13 +257,10 @@ function sendToWhatsApp() {
     
     cart.forEach((item, index) => {
         message += `${index + 1}. *${item.name}*\n`;
-        message += `   الكمية: ${item.quantity}\n`;
-        message += `   السعر: ${item.price.toFixed(2)} ج.م\n`;
-        message += `   المجموع: ${(item.price * item.quantity).toFixed(2)} ج.م\n\n`;
+        message += `   الكمية: ${item.quantity}\n\n`;
     });
     
     message += `━━━━━━━━━━━━━━━━━━━━\n\n`;
-    message += `*💰 الإجمالي الكلي: ${calculateTotal().toFixed(2)} ج.م*\n\n`;
     message += `⏰ وقت الطلب: ${new Date().toLocaleString('ar-EG')}`;
     
     const encodedMessage = encodeURIComponent(message);
