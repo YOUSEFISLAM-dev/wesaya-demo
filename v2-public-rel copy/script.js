@@ -706,38 +706,8 @@ function handleSuccessfulPayment(orderId) {
     // Remove event listener
     window.removeEventListener('message', handlePaymobCallback);
     
-    // Send confirmation to WhatsApp
-    const whatsappMessage = `*🍕 طلب جديد مدفوع - Wesaya*\n\n` +
-                           `━━━━━━━━━━━━━━━━━━━━\n\n` +
-                           `*رقم الطلب:* ${orderId}\n` +
-                           `*المبلغ:* ${calculateTotal().toFixed(2)} ج.م\n` +
-                           `*حالة الدفع:* ✅ تم الدفع عبر Paymob\n\n` +
-                           `━━━━━━━━━━━━━━━━━━━━\n\n` +
-                           `*👤 معلومات العميل:*\n` +
-                           `الاسم: ${customerInfo.name}\n` +
-                           `الهاتف: ${customerInfo.phone}\n` +
-                           `العنوان: ${customerInfo.address}\n`;
-    
-    if (customerInfo.notes) {
-        whatsappMessage += `ملاحظات: ${customerInfo.notes}\n`;
-    }
-    
-    whatsappMessage += `\n━━━━━━━━━━━━━━━━━━━━\n\n`;
-    whatsappMessage += `*🛒 تفاصيل الطلب:*\n\n`;
-    
-    cart.forEach((item, index) => {
-        whatsappMessage += `${index + 1}. *${item.name}*\n`;
-        whatsappMessage += `   الكمية: ${item.quantity} × ${item.price} ج.م\n\n`;
-    });
-    
-    whatsappMessage += `━━━━━━━━━━━━━━━━━━━━\n\n`;
-    whatsappMessage += `⏰ وقت الطلب: ${new Date().toLocaleString('ar-EG')}`;
-    
-    const encodedMessage = encodeURIComponent(whatsappMessage);
-    const whatsappURL = `https://wa.me/${RESTAURANT_PHONE}?text=${encodedMessage}`;
-    
-    // Open WhatsApp
-    window.open(whatsappURL, '_blank');
+    // Save order to Firebase
+    saveOrderToFirebase(orderId);
     
     // Clear cart
     cart = [];
@@ -748,6 +718,64 @@ function handleSuccessfulPayment(orderId) {
     
     // Show success message
     showSuccessPaymentMessage(orderId);
+}
+
+// Save order to Firebase
+function saveOrderToFirebase(orderId) {
+    // Firebase Configuration - Same as admin dashboard
+    const firebaseConfig = {
+    apiKey: "AIzaSyDrrESlc8fCU5CHB-8p4KWBpBOnNdJDLrE",
+    authDomain: "wesaya-25a2e.firebaseapp.com",
+    databaseURL: "https://wesaya-25a2e-default-rtdb.firebaseio.com",
+    projectId: "wesaya-25a2e",
+    storageBucket: "wesaya-25a2e.firebasestorage.app",
+    messagingSenderId: "900046427718",
+    appId: "1:900046427718:web:badc552ccccf25e2e8dc47"
+    };
+    
+    // Initialize Firebase if not already initialized
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+    
+    const database = firebase.database();
+    const ordersRef = database.ref('orders');
+    
+    // Get saved order data
+    const orderData = JSON.parse(localStorage.getItem('wesayaCurrentOrder'));
+    
+    if (!orderData) {
+        console.error('No order data found');
+        return;
+    }
+    
+    // Prepare order object for Firebase
+    const firebaseOrder = {
+        orderId: orderId,
+        customerInfo: orderData.customerInfo,
+        cart: orderData.cart,
+        amount: orderData.amount,
+        timestamp: orderData.timestamp,
+        status: 'new', // Initial status
+        paymentMethod: 'paymob',
+        paymentStatus: 'paid',
+        lastUpdated: new Date().toISOString()
+    };
+    
+    // Push to Firebase
+    ordersRef.push(firebaseOrder)
+        .then(() => {
+            console.log('✅ Order saved to Firebase successfully');
+            // Clear current order from localStorage
+            localStorage.removeItem('wesayaCurrentOrder');
+        })
+        .catch((error) => {
+            console.error('❌ Error saving order to Firebase:', error);
+            // Fallback: Save to local storage for manual recovery
+            const failedOrders = JSON.parse(localStorage.getItem('wesayaFailedOrders') || '[]');
+            failedOrders.push(firebaseOrder);
+            localStorage.setItem('wesayaFailedOrders', JSON.stringify(failedOrders));
+        });
 }
 
 function showSuccessPaymentMessage(orderId) {
