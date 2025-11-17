@@ -787,10 +787,10 @@
                                 </div>
                             </label>
                             <label class="payment-method-option">
-                                <input type="radio" name="paymentMethod" value="fawry">
+                                <input type="radio" name="paymentMethod" value="paymob">
                                 <div class="payment-method-card">
-                                    <i class="fas fa-money-bill-wave"></i>
-                                    <span>الدفع بفوري</span>
+                                    <i class="fas fa-credit-card"></i>
+                                    <span>الدفع الإلكتروني (Paymob)</span>
                                 </div>
                             </label>
                         </div>
@@ -855,55 +855,52 @@
         <span>تثبيت التطبيق</span>
     </button>
 
-    <!-- Fawry Payment Modal -->
-    <div class="fawry-modal" id="fawryModal">
-        <div class="fawry-overlay"></div>
-        <div class="fawry-content">
-            <div class="fawry-header">
-                <h2><i class="fas fa-money-bill-wave"></i> الدفع بفوري</h2>
-                <button class="close-fawry" id="closeFawry">
+    <!-- Paymob Payment Modal -->
+    <div class="paymob-modal" id="paymobModal">
+        <div class="paymob-overlay"></div>
+        <div class="paymob-content">
+            <div class="paymob-header">
+                <h2><i class="fas fa-credit-card"></i> الدفع الإلكتروني</h2>
+                <button class="close-paymob" id="closePaymob">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <div class="fawry-body">
-                <div class="fawry-logo">
-                    <i class="fas fa-money-bill-wave" style="font-size: 60px; color: #FF6B35;"></i>
-                    <h3>فوري - Fawry</h3>
+            <div class="paymob-body">
+                <div class="paymob-loading" id="paymobLoading">
+                    <div class="loading-spinner"></div>
+                    <p>جاري تحضير صفحة الدفع...</p>
                 </div>
-                <div class="fawry-info">
-                    <div class="fawry-reference">
-                        <label>رقم الطلب:</label>
-                        <div class="reference-number" id="fawryReference">---</div>
-                        <button class="copy-reference" onclick="copyFawryReference()">
-                            <i class="fas fa-copy"></i> نسخ
-                        </button>
+                <iframe id="paymobIframe" style="display: none; width: 100%; height: 600px; border: none; border-radius: 10px;"></iframe>
+                <div class="paymob-info" id="paymobInfo">
+                    <div class="payment-methods-info">
+                        <h4><i class="fas fa-info-circle"></i> طرق الدفع المتاحة:</h4>
+                        <div class="payment-options-grid">
+                            <div class="payment-option-item">
+                                <i class="fas fa-credit-card"></i>
+                                <span>بطاقات الائتمان</span>
+                            </div>
+                            <div class="payment-option-item">
+                                <i class="fas fa-mobile-alt"></i>
+                                <span>المحافظ الإلكترونية</span>
+                            </div>
+                            <div class="payment-option-item">
+                                <i class="fas fa-university"></i>
+                                <span>التحويل البنكي</span>
+                            </div>
+                            <div class="payment-option-item">
+                                <i class="fas fa-qrcode"></i>
+                                <span>فوري</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="fawry-amount">
-                        <label>المبلغ المطلوب:</label>
-                        <div class="amount-value" id="fawryAmount">0.00 ج.م</div>
+                    <div class="paymob-amount-display">
+                        <label>المبلغ الإجمالي:</label>
+                        <div class="amount-value" id="paymobAmount">0.00 ج.م</div>
                     </div>
-                </div>
-                <div class="fawry-instructions">
-                    <h4><i class="fas fa-info-circle"></i> خطوات الدفع:</h4>
-                    <ol>
-                        <li>اذهب إلى أقرب ماكينة فوري</li>
-                        <li>اختر "دفع فواتير"</li>
-                        <li>أدخل رقم الطلب أعلاه</li>
-                        <li>أدخل المبلغ المطلوب</li>
-                        <li>أكمل عملية الدفع</li>
-                    </ol>
-                    <p class="fawry-note">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        سيتم تأكيد طلبك خلال 5 دقائق من إتمام الدفع
-                    </p>
-                </div>
-                <div class="fawry-actions">
-                    <button class="btn-fawry-confirm" onclick="confirmFawryPayment()">
-                        <i class="fas fa-check"></i> تم الدفع
-                    </button>
-                    <button class="btn-fawry-cancel" onclick="closeFawryModal()">
-                        <i class="fas fa-times"></i> إلغاء
-                    </button>
+                    <div class="paymob-security">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>الدفع آمن ومشفر عبر Paymob</span>
+                    </div>
                 </div>
             </div>
         </div>

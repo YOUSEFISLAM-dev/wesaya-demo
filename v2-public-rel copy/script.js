@@ -510,35 +510,44 @@ customerForm.addEventListener('submit', (e) => {
     saveCustomerInfo();
     
     // Process payment based on selected method
-    if (paymentMethod === 'fawry') {
-        processFawryPayment();
+    if (paymentMethod === 'paymob') {
+        processPaymobPayment();
     } else {
         sendToWhatsApp();
     }
 });
 
-// Fawry Payment Functions
-let currentFawryReference = null;
+// Paymob Payment Functions
+let currentPaymobOrderId = null;
 
-function processFawryPayment() {
+// Paymob Configuration
+const PAYMOB_CONFIG = {
+    apiKey: 'ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2TVRFd05UWTNOaXdpYm1GdFpTSTZJbWx1YVhScFlXd2lmUS5TR3BGMVZRZi1KMU91bE9QNVJWeHR0dlNfcGc3TnVDR3NsM1hXeWNqb3RidmJ3UHJLX0lwU0dBREVuS1hxR3lCa0Z1ekhGSEZnY19mcmg2S0VLSHpzZw==',
+    integrationId: 5398166,
+    iframeId: 979393
+};
+
+function processPaymobPayment() {
     if (cart.length === 0) {
         showNotification('السلة فارغة! أضف بعض المنتجات أولاً', 'info');
         return;
     }
     
-    // Generate unique reference number
-    currentFawryReference = 'WES' + Date.now().toString().slice(-8);
-    
-    // Show Fawry modal
-    document.getElementById('fawryReference').textContent = currentFawryReference;
-    document.getElementById('fawryAmount').textContent = `${calculateTotal().toFixed(2)} ج.م`;
-    
     closeCustomerModal();
-    openFawryModal();
+    openPaymobModal();
     
-    // Store order for later confirmation
-    const fawryOrder = {
-        reference: currentFawryReference,
+    // Generate unique order ID
+    currentPaymobOrderId = 'WES' + Date.now();
+    
+    // Show loading
+    document.getElementById('paymobLoading').style.display = 'block';
+    document.getElementById('paymobInfo').style.display = 'block';
+    document.getElementById('paymobIframe').style.display = 'none';
+    document.getElementById('paymobAmount').textContent = `${calculateTotal().toFixed(2)} ج.م`;
+    
+    // Store order details
+    const orderData = {
+        orderId: currentPaymobOrderId,
         cart: [...cart],
         customerInfo: {...customerInfo},
         amount: calculateTotal(),
@@ -547,89 +556,271 @@ function processFawryPayment() {
     };
     
     // Save to localStorage
-    const pendingFawryOrders = JSON.parse(localStorage.getItem('wesayaPendingFawryOrders') || '[]');
-    pendingFawryOrders.push(fawryOrder);
-    localStorage.setItem('wesayaPendingFawryOrders', JSON.stringify(pendingFawryOrders));
+    localStorage.setItem('wesayaCurrentOrder', JSON.stringify(orderData));
     
-    showNotification('تم إنشاء رقم الطلب بنجاح! 🎉', 'success');
+    // Initialize Paymob payment
+    initializePaymobPayment(orderData);
 }
 
-function openFawryModal() {
-    document.getElementById('fawryModal').classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
-
-function closeFawryModal() {
-    document.getElementById('fawryModal').classList.remove('active');
-    document.body.style.overflow = '';
-}
-
-function copyFawryReference() {
-    const referenceText = document.getElementById('fawryReference').textContent;
-    
-    // Copy to clipboard
-    navigator.clipboard.writeText(referenceText).then(() => {
-        showNotification('تم نسخ رقم الطلب! 📋', 'success');
-    }).catch(() => {
-        // Fallback for older browsers
-        const textArea = document.createElement('textarea');
-        textArea.value = referenceText;
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textArea);
-        showNotification('تم نسخ رقم الطلب! 📋', 'success');
-    });
-}
-
-function confirmFawryPayment() {
-    // In a real implementation, you would verify the payment with Fawry's API
-    // For now, we'll simulate confirmation
-    
-    const confirmMessage = `
-        شكراً لك! تم تسجيل طلبك برقم: ${currentFawryReference}
+async function initializePaymobPayment(orderData) {
+    try {
+        showNotification('جاري الاتصال ببوابة الدفع...', 'info');
         
-        سنقوم بالتحقق من الدفع خلال 5 دقائق وسيتم التواصل معك لتأكيد الطلب.
+        // Step 1: Authenticate with Paymob API
+        const authResponse = await fetch('https://accept.paymob.com/api/auth/tokens', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                api_key: PAYMOB_CONFIG.apiKey
+            })
+        });
         
-        يمكنك التواصل معنا على واتساب ${RESTAURANT_PHONE} لأي استفسار.
-    `;
+        if (!authResponse.ok) {
+            throw new Error('فشل في المصادقة مع Paymob');
+        }
+        
+        const authData = await authResponse.json();
+        const authToken = authData.token;
+        
+        // Step 2: Create Order
+        const orderResponse = await fetch('https://accept.paymob.com/api/ecommerce/orders', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                auth_token: authToken,
+                delivery_needed: "false",
+                amount_cents: Math.round(orderData.amount * 100), // Convert to cents
+                currency: "EGP",
+                merchant_order_id: orderData.orderId,
+                items: orderData.cart.map(item => ({
+                    name: item.name,
+                    amount_cents: Math.round(item.price * 100),
+                    quantity: item.quantity
+                }))
+            })
+        });
+        
+        if (!orderResponse.ok) {
+            throw new Error('فشل في إنشاء الطلب');
+        }
+        
+        const orderResponseData = await orderResponse.json();
+        const paymobOrderId = orderResponseData.id;
+        
+        // Step 3: Generate Payment Token
+        const paymentKeyResponse = await fetch('https://accept.paymob.com/api/acceptance/payment_keys', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                auth_token: authToken,
+                amount_cents: Math.round(orderData.amount * 100),
+                expiration: 3600,
+                order_id: paymobOrderId,
+                billing_data: {
+                    apartment: "NA",
+                    email: customerInfo.phone + "@wesaya.com",
+                    floor: "NA",
+                    first_name: customerInfo.name.split(' ')[0] || customerInfo.name,
+                    last_name: customerInfo.name.split(' ').slice(1).join(' ') || customerInfo.name,
+                    phone_number: customerInfo.phone,
+                    street: customerInfo.address,
+                    building: "NA",
+                    shipping_method: "NA",
+                    postal_code: "NA",
+                    city: "Cairo",
+                    country: "EG",
+                    state: "NA"
+                },
+                currency: "EGP",
+                integration_id: PAYMOB_CONFIG.integrationId
+            })
+        });
+        
+        if (!paymentKeyResponse.ok) {
+            throw new Error('فشل في إنشاء مفتاح الدفع');
+        }
+        
+        const paymentKeyData = await paymentKeyResponse.json();
+        const paymentToken = paymentKeyData.token;
+        
+        // Step 4: Load iFrame with payment token
+        const iframeUrl = `https://accept.paymob.com/api/acceptance/iframes/${PAYMOB_CONFIG.iframeId}?payment_token=${paymentToken}`;
+        
+        // Load iframe
+        const iframe = document.getElementById('paymobIframe');
+        iframe.src = iframeUrl;
+        
+        // Hide loading, show iframe
+        document.getElementById('paymobLoading').style.display = 'none';
+        document.getElementById('paymobInfo').style.display = 'none';
+        iframe.style.display = 'block';
+        
+        showNotification('تم تحميل صفحة الدفع بنجاح', 'success');
+        
+        // Listen for payment completion
+        window.addEventListener('message', handlePaymobCallback);
+        
+    } catch (error) {
+        console.error('Paymob initialization error:', error);
+        showNotification('حدث خطأ في الاتصال ببوابة الدفع: ' + error.message, 'info');
+        closePaymobModal();
+    }
+}
+
+function handlePaymobCallback(event) {
+    // Paymob sends transaction data via postMessage
+    if (event.data && typeof event.data === 'object') {
+        // Check if payment was successful
+        if (event.data.success === true || event.data.success === 'true') {
+            handleSuccessfulPayment(currentPaymobOrderId);
+        } else if (event.data.success === false || event.data.success === 'false') {
+            showNotification('فشلت عملية الدفع. حاول مرة أخرى.', 'info');
+            closePaymobModal();
+        }
+    }
+    
+    // Also check URL hash changes (Paymob redirects with transaction info)
+    const iframe = document.getElementById('paymobIframe');
+    if (iframe && iframe.contentWindow) {
+        try {
+            const iframeUrl = iframe.contentWindow.location.href;
+            if (iframeUrl.includes('success=true')) {
+                handleSuccessfulPayment(currentPaymobOrderId);
+            } else if (iframeUrl.includes('success=false')) {
+                showNotification('فشلت عملية الدفع. حاول مرة أخرى.', 'info');
+                closePaymobModal();
+            }
+        } catch (e) {
+            // Cross-origin restriction, ignore
+        }
+    }
+}
+
+function handleSuccessfulPayment(orderId) {
+    // Remove event listener
+    window.removeEventListener('message', handlePaymobCallback);
     
     // Send confirmation to WhatsApp
-    const whatsappMessage = `*🍕 تأكيد طلب فوري - Wesaya*\n\n` +
-                           `رقم الطلب: ${currentFawryReference}\n` +
-                           `المبلغ: ${calculateTotal().toFixed(2)} ج.م\n\n` +
-                           `*معلومات العميل:*\n` +
+    const whatsappMessage = `*🍕 طلب جديد مدفوع - Wesaya*\n\n` +
+                           `━━━━━━━━━━━━━━━━━━━━\n\n` +
+                           `*رقم الطلب:* ${orderId}\n` +
+                           `*المبلغ:* ${calculateTotal().toFixed(2)} ج.م\n` +
+                           `*حالة الدفع:* ✅ تم الدفع عبر Paymob\n\n` +
+                           `━━━━━━━━━━━━━━━━━━━━\n\n` +
+                           `*👤 معلومات العميل:*\n` +
                            `الاسم: ${customerInfo.name}\n` +
                            `الهاتف: ${customerInfo.phone}\n` +
-                           `العنوان: ${customerInfo.address}\n\n` +
-                           `تم الدفع عبر فوري - في انتظار التأكيد`;
+                           `العنوان: ${customerInfo.address}\n`;
+    
+    if (customerInfo.notes) {
+        whatsappMessage += `ملاحظات: ${customerInfo.notes}\n`;
+    }
+    
+    whatsappMessage += `\n━━━━━━━━━━━━━━━━━━━━\n\n`;
+    whatsappMessage += `*🛒 تفاصيل الطلب:*\n\n`;
+    
+    cart.forEach((item, index) => {
+        whatsappMessage += `${index + 1}. *${item.name}*\n`;
+        whatsappMessage += `   الكمية: ${item.quantity} × ${item.price} ج.م\n\n`;
+    });
+    
+    whatsappMessage += `━━━━━━━━━━━━━━━━━━━━\n\n`;
+    whatsappMessage += `⏰ وقت الطلب: ${new Date().toLocaleString('ar-EG')}`;
     
     const encodedMessage = encodeURIComponent(whatsappMessage);
     const whatsappURL = `https://wa.me/${RESTAURANT_PHONE}?text=${encodedMessage}`;
-    window.open(whatsappURL, '_blank');
     
-    // Show confirmation
-    alert(confirmMessage);
+    // Open WhatsApp
+    window.open(whatsappURL, '_blank');
     
     // Clear cart
     cart = [];
     saveCart();
     updateCartUI();
     
-    closeFawryModal();
-    showNotification('شكراً لك! سيتم التواصل معك قريباً 🎉', 'success');
+    closePaymobModal();
+    
+    // Show success message
+    showSuccessPaymentMessage(orderId);
 }
 
-// Fawry Modal Events
-const fawryModal = document.getElementById('fawryModal');
-const closeFawry = document.getElementById('closeFawry');
-
-if (closeFawry) {
-    closeFawry.addEventListener('click', closeFawryModal);
+function showSuccessPaymentMessage(orderId) {
+    const message = document.createElement('div');
+    message.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 50px;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        z-index: 10003;
+        text-align: center;
+        max-width: 90%;
+        animation: zoomIn 0.5s ease;
+    `;
+    
+    message.innerHTML = `
+        <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #27ae60, #229954); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 30px; animation: bounceIn 0.6s ease;">
+            <i class="fas fa-check" style="font-size: 50px; color: white;"></i>
+        </div>
+        <h2 style="color: #27ae60; font-size: 28px; margin-bottom: 15px;">تم الدفع بنجاح! 🎉</h2>
+        <p style="color: #666; font-size: 18px; margin-bottom: 10px;">رقم طلبك: <strong>${orderId}</strong></p>
+        <p style="color: #666; font-size: 16px; margin-bottom: 30px;">سنبدأ في تحضير طلبك فوراً</p>
+        <button onclick="this.parentElement.remove()" style="background: #27ae60; color: white; border: none; padding: 15px 40px; border-radius: 50px; cursor: pointer; font-size: 18px; font-weight: 600; font-family: 'Cairo', sans-serif;">
+            رائع!
+        </button>
+    `;
+    
+    document.body.appendChild(message);
+    
+    // Auto remove after 10 seconds
+    setTimeout(() => message.remove(), 10000);
 }
 
-if (fawryModal) {
-    fawryModal.querySelector('.fawry-overlay').addEventListener('click', closeFawryModal);
+function openPaymobModal() {
+    document.getElementById('paymobModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closePaymobModal() {
+    const modal = document.getElementById('paymobModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+    
+    // Reset iframe
+    const iframe = document.getElementById('paymobIframe');
+    iframe.src = '';
+    iframe.style.display = 'none';
+    
+    // Show info again
+    document.getElementById('paymobLoading').style.display = 'none';
+    document.getElementById('paymobInfo').style.display = 'block';
+    
+    // Remove event listener
+    window.removeEventListener('message', handlePaymobCallback);
+}
+
+// Paymob Modal Events
+const paymobModal = document.getElementById('paymobModal');
+const closePaymob = document.getElementById('closePaymob');
+
+if (closePaymob) {
+    closePaymob.addEventListener('click', closePaymobModal);
+}
+
+if (paymobModal) {
+    const overlay = paymobModal.querySelector('.paymob-overlay');
+    if (overlay) {
+        overlay.addEventListener('click', closePaymobModal);
+    }
 }
 
 // Search Modal Events

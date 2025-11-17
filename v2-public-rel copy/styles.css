@@ -2470,8 +2470,8 @@ textarea {
     color: #25D366;
 }
 
-.payment-method-card i.fa-money-bill-wave {
-    color: #FF6B35;
+.payment-method-card i.fa-credit-card {
+    color: #00A8E1;
 }
 
 .payment-method-card span {
@@ -2492,8 +2492,8 @@ textarea {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Fawry Modal */
-.fawry-modal {
+/* Paymob Modal */
+.paymob-modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -2503,13 +2503,13 @@ textarea {
     display: none;
 }
 
-.fawry-modal.active {
+.paymob-modal.active {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.fawry-overlay {
+.paymob-overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -2519,10 +2519,10 @@ textarea {
     backdrop-filter: blur(5px);
 }
 
-.fawry-content {
+.paymob-content {
     position: relative;
     width: 90%;
-    max-width: 600px;
+    max-width: 700px;
     background: var(--card-bg);
     border-radius: 20px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -2533,23 +2533,23 @@ textarea {
     flex-direction: column;
 }
 
-.fawry-header {
+.paymob-header {
     padding: 25px;
-    background: linear-gradient(135deg, #FF6B35, #F7931E);
+    background: linear-gradient(135deg, #00A8E1, #0077B5);
     color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.fawry-header h2 {
+.paymob-header h2 {
     font-size: 24px;
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.close-fawry {
+.close-paymob {
     background: rgba(255, 255, 255, 0.2);
     border: none;
     width: 40px;
@@ -2561,191 +2561,136 @@ textarea {
     transition: var(--transition);
 }
 
-.close-fawry:hover {
+.close-paymob:hover {
     background: rgba(255, 255, 255, 0.3);
     transform: rotate(90deg);
 }
 
-.fawry-body {
+.paymob-body {
     padding: 30px;
     overflow-y: auto;
 }
 
-.fawry-logo {
+.paymob-loading {
     text-align: center;
-    margin-bottom: 30px;
+    padding: 40px 20px;
 }
 
-.fawry-logo h3 {
-    font-size: 28px;
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #00A8E1;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.paymob-loading p {
+    color: var(--text-secondary);
+    font-size: 16px;
+}
+
+.paymob-info {
+    margin-top: 20px;
+}
+
+.payment-methods-info {
+    background: linear-gradient(135deg, rgba(0, 168, 225, 0.1), rgba(0, 119, 181, 0.1));
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.payment-methods-info h4 {
+    font-size: 20px;
+    margin-bottom: 20px;
     color: var(--text-color);
-    margin-top: 15px;
-    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.fawry-info {
+.payment-methods-info h4 i {
+    color: #00A8E1;
+}
+
+.payment-options-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.payment-option-item {
+    background: var(--card-bg);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid var(--border-color);
+    transition: var(--transition);
+}
+
+.payment-option-item:hover {
+    border-color: #00A8E1;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 168, 225, 0.2);
+}
+
+.payment-option-item i {
+    font-size: 32px;
+    color: #00A8E1;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.payment-option-item span {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.paymob-amount-display {
     background: var(--input-bg);
     border: 2px solid var(--border-color);
     border-radius: 15px;
     padding: 25px;
-    margin-bottom: 25px;
-}
-
-.fawry-reference,
-.fawry-amount {
     margin-bottom: 20px;
+    text-align: center;
 }
 
-.fawry-reference:last-child,
-.fawry-amount:last-child {
-    margin-bottom: 0;
-}
-
-.fawry-reference label,
-.fawry-amount label {
+.paymob-amount-display label {
     display: block;
     font-size: 14px;
     color: var(--text-secondary);
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     font-weight: 600;
-}
-
-.reference-number {
-    display: inline-block;
-    font-size: 28px;
-    font-weight: 900;
-    color: #FF6B35;
-    letter-spacing: 2px;
-    font-family: 'Courier New', monospace;
-    background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(247, 147, 30, 0.1));
-    padding: 15px 25px;
-    border-radius: 10px;
-    border: 2px dashed #FF6B35;
-    margin-right: 10px;
-}
-
-.copy-reference {
-    background: #FF6B35;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: var(--transition);
-    font-family: 'Cairo', sans-serif;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.copy-reference:hover {
-    background: #F7931E;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
 }
 
 .amount-value {
-    font-size: 36px;
+    font-size: 42px;
     font-weight: 900;
-    color: var(--primary-color);
+    color: #00A8E1;
 }
 
-.fawry-instructions {
-    background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(247, 147, 30, 0.1));
-    border-radius: 15px;
-    padding: 25px;
-    margin-bottom: 25px;
-}
-
-.fawry-instructions h4 {
-    font-size: 20px;
-    margin-bottom: 15px;
-    color: var(--text-color);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.fawry-instructions h4 i {
-    color: #FF6B35;
-}
-
-.fawry-instructions ol {
-    margin: 0;
-    padding-right: 25px;
-    color: var(--text-secondary);
-}
-
-.fawry-instructions ol li {
-    margin-bottom: 12px;
-    line-height: 1.8;
-    font-size: 16px;
-}
-
-.fawry-note {
-    margin-top: 20px;
-    padding: 15px;
-    background: rgba(241, 196, 15, 0.1);
-    border-right: 4px solid #F1C40F;
-    border-radius: 8px;
-    color: var(--text-color);
-    display: flex;
-    align-items: start;
-    gap: 10px;
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-.fawry-note i {
-    color: #F1C40F;
-    font-size: 18px;
-    flex-shrink: 0;
-    margin-top: 2px;
-}
-
-.fawry-actions {
-    display: flex;
-    gap: 15px;
-}
-
-.btn-fawry-confirm,
-.btn-fawry-cancel {
-    flex: 1;
-    padding: 18px;
-    border: none;
-    border-radius: 10px;
-    font-size: 18px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: var(--transition);
-    font-family: 'Cairo', sans-serif;
+.paymob-security {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
+    padding: 15px;
+    background: rgba(39, 174, 96, 0.1);
+    border-radius: 10px;
+    color: #27ae60;
+    font-weight: 600;
 }
 
-.btn-fawry-confirm {
-    background: #27ae60;
-    color: white;
-}
-
-.btn-fawry-confirm:hover {
-    background: #229954;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(39, 174, 96, 0.4);
-}
-
-.btn-fawry-cancel {
-    background: #e74c3c;
-    color: white;
-}
-
-.btn-fawry-cancel:hover {
-    background: #c0392b;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(231, 76, 60, 0.4);
+.paymob-security i {
+    font-size: 20px;
 }
 
 /* Responsive Design for Payment Methods */
@@ -2754,45 +2699,23 @@ textarea {
         grid-template-columns: 1fr;
     }
     
-    .fawry-content {
+    .paymob-content {
         width: 95%;
     }
     
-    .fawry-body {
+    .paymob-body {
         padding: 20px;
     }
     
-    .reference-number {
-        font-size: 22px;
-        padding: 12px 20px;
-        display: block;
-        margin-bottom: 10px;
-        margin-right: 0;
-    }
-    
-    .copy-reference {
-        width: 100%;
-        justify-content: center;
+    .payment-options-grid {
+        grid-template-columns: 1fr;
     }
     
     .amount-value {
-        font-size: 28px;
+        font-size: 32px;
     }
     
-    .fawry-actions {
-        flex-direction: column;
-    }
-    
-    .btn-fawry-confirm,
-    .btn-fawry-cancel {
-        width: 100%;
-    }
-    
-    .fawry-instructions ol {
-        padding-right: 20px;
-    }
-    
-    .fawry-instructions ol li {
-        font-size: 14px;
+    #paymobIframe {
+        height: 500px !important;
     }
 }
