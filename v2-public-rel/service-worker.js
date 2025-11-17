@@ -20,7 +20,7 @@ const urlsToCache = [
 ];
 
 // Assets to cache on first visit
-const DYNAMIC_CACHE = 'wesaya-dynamic-v1';
+const DYNAMIC_CACHE = 'wesaya-dynamic-v2-rel';
 
 // Install Service Worker
 self.addEventListener('install', (event) => {
